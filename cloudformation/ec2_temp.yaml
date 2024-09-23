@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CloudFormation template to create an EC2 instance by using parameters"
+
+Parameters:
+  InstanceType:
+    Description: "EC2 Instance Type"
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t2.small
+      - t2.medium
+    ConstraintDescription: "must be a valid EC2 instance type"
+
+  KeyName:
+    Description: "Name of an existing EC2 KeyPair for SSH Access"
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: "must be the name of an existing EC2 KeyPair"
+
+Resources:
+  EC2Instance:  # Resource name should match the reference in Outputs
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: 
+        Ref: InstanceType
+      KeyName: macbook
+        Ref: KeyName  # Correct indentation and KeyName
+      ImageId: ami-0ebfd941bbafe70c6  # ImageId, not ImageID
+
+Outputs:
+  InstanceId:
+    Description: "ID of the created EC2 instance"
+    Value:
+      Ref: EC2Instance  # Correct resource reference
