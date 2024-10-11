@@ -18,3 +18,7 @@
         path: /home/ec2-user/testdir/testfile
         state: touch
 # state "touch" creates the file 
+
+
+# this is a ansible playbook to create a ec2 instance in order for this to work 
+ # need to setup aws configure because we will be using the local host
