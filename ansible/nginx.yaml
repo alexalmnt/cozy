@@ -1,0 +1,22 @@
+---
+- name: Installing Nginx On centos
+  hosts: all
+  become: yes
+
+  tasks: 
+    - name: Update package manager
+      yum: 
+        name: '*' # this is a wildcard letting ansible know to update every package on the target machines 
+        state: latest
+    
+    - name: install nginx 
+      yum:
+        name: nginx
+        state: present
+
+    - name: start and enable nginx service
+      service:
+        name: nginx
+        state: started 
+        enabled: yes
+      

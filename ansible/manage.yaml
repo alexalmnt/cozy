@@ -1,0 +1,20 @@
+--- # this is the start of the playbook we start every playbook with ---
+
+- name: Manage files and directories #'name' gives a description of what the playbook does 
+  hosts: all  # 'hosts' specifies which machines the playbook will run on 
+  become: yes  #'become' 'yes' allows the playbook to run with root privileges
+  tasks: #'task' is a list of actions that ansible will perform
+    - name: Create a directory  # Description of task
+      file:
+        path: /home/ec2-user/testdir
+        state: directory
+        mode : '0755'
+      #this uses the 'file' module to manage files and directories 
+      #'path' specifies where i want the directory created
+      #'state' "directory" makes sure that it creates a directory
+      #mode: sets permissions of the directory
+    - name: create a file in the directory 
+      file:
+        path: /home/ec2-user/testdir/testfile
+        state: touch
+# state "touch" creates the file 
