@@ -1,0 +1,17 @@
+---
+- name: Launch ec2 instance on aws
+  hosts: localhost # letting ansible know to run on my local machine 
+  gather_facts: no # tells ansible not to collect facts about the local host like os , version , ip ...
+  connection: local # tells ansible to run on local host instead of remote server 
+
+  tasks:
+    - name: launch a new ec2 instance
+      amazon.aws.ec2_instance: # the module i used to create the ec2 instance
+        key_name: MacBook # name of the keypair i want to create the instance with
+        instance_type: t2.micro
+        image_id: ami-0fff1b9a61dec8a5f
+        region: us-east-1
+        security_group: default
+        wait: yes # tells ansible to wait until the  instance is running before moving on to the next task
+        count: 1 # how many instances i want created
+      register: ec2_instance_info # saves the output of the task in a variable 
