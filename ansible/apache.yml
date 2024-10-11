@@ -1,0 +1,16 @@
+---
+- name: install and updating apache web server
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: install apache on redhat systems
+      yum:
+        name: httpd
+        state: present
+    
+    - name: start and enable apache services
+      service: 
+        name: httpd
+        state: started
+        enabled: yes
