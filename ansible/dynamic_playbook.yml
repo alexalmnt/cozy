@@ -1,0 +1,23 @@
+---
+- name: First Dynamic Playbook
+  hosts: all
+  become: yes
+  vars:
+    package_name: httpd
+    remove_package: false
+  tasks:
+    - name: Install Package Dynamically
+      yum:
+        name: "{{ package_name }}"
+        state: present
+    - name: Create A Directory If It Doesnt Exists
+      file:
+        path: /home/ec2-user/lonzo
+        state: directory
+    - name: Remove the package conditionally
+      yum:
+        name: "{{ package_name }}"
+        state: absent
+      when: remove_package is defined and remove_package == true
+
+    
