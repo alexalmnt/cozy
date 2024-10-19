@@ -1,0 +1,17 @@
+---
+- name: Nginx Dynamic Playbook
+  hosts: all
+  become: yes
+  vars:
+    service_name: nginx
+    service_action: start # change to "stop" to stop the service
+  tasks:
+    - name: Install nginx
+      yum: #module
+        name: "{{ service_name }}"
+        state: present
+    - name: start the service
+      service:
+        name: "{{ service_name }}"
+        state: started
+      when: service_action == 'start'

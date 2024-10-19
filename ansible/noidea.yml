@@ -1,0 +1,19 @@
+---
+- name: creating a file
+  hosts: all
+  become: yes
+  tasks:
+    - name: creating a directory 
+      file: 
+        path: /home/ec2-user/valorant
+        state: directory
+        
+    - name: creating another directory inside
+      file:
+        path: /home/ec2-user/valorant/valorant2
+        state: directory
+
+    - name: creating a file 
+      file:
+        path: /home/ec2-user/valorant/valorant2/rank
+        state: touch

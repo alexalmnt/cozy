@@ -4,14 +4,6 @@
   become: yes
   
   tasks:
-    - name: create a directory
-      file:
-        path: /home/ec2-user/montedir
-        state: directory
-    - name: create a file inside the directory 
-      file:
-        path: /home/ec2-user/montedir/montefile
-        state: touch
     - name: update all packages 
       yum:
         name: '*'
