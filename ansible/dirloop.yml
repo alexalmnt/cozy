@@ -1,0 +1,17 @@
+---
+- name: creating files using loops
+  hosts: all
+  become: yes
+  tasks:
+    - name: make sure directory exits
+      file:
+        path: /home/ec2-user/montedir
+        state: directory
+    - name: create the files
+      file:
+        path: "/home/ec2-user/montedir/{{ item }}"
+        state: touch
+      loop:
+      - file1.txt
+      - file2.txt
+      - file3.txt
