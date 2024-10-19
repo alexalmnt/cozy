@@ -5,8 +5,11 @@
   tasks:
     - name: make sure directory exits
       file:
-        path: /home/ec2-user/montedir
+        path: "/home/ec2-user/montedir/{{ item }}"
         state: directory
+      loop: 
+      - montedir1
+      - montedir2
     - name: create the files
       file:
         path: "/home/ec2-user/montedir/{{ item }}"
