@@ -1,0 +1,15 @@
+---
+- name: installing a package and restart using handlers
+  hosts: all
+  become: yes
+  tasks:
+    - name: install package
+      yum:
+        name: httpd
+        state: present
+      notify: handlertest
+  handlers:
+    - name: restart http
+      service:
+        name: httpd
+        state: restarted

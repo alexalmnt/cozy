@@ -1,0 +1,30 @@
+---
+- name: Install packages based on conditions, loops, and variables
+  hosts: all
+  become: yes
+  tasks:
+  
+  vars: 
+    package_list: # Variable that defines the packages to be installed
+    - httpd
+    - vim
+  tasks:
+    - name: check if the system is amazon linux 2
+      command: uname -r
+      register: kernel_info
+    - name: install package on amazon linux 2
+      package:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ package_list }}"
+      when: " 'amzn2' in kernel_info.stdout"
+    - name: ensure apache is running
+      service:
+        name: httpd
+        state: started
+      when:  " 'amzn2' in kernel_info.stdout"
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
