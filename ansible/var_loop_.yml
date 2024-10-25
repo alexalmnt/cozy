@@ -1,0 +1,24 @@
+---
+- name: Dynamic Playbook Using Vars And Loops
+  hosts: all
+  become: yes
+
+  vars: 
+    package_download:
+      - httpd
+      - vim
+      - nginx
+    directories_create:
+      - /home/ec2-user/testdir1
+      - /home/ec2-user/testdir2
+  tasks:
+    - name: install required packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ package_download }}"
+    - name: create the directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop: "{{ directories_create }}"
