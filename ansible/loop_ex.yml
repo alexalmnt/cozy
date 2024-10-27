@@ -1,0 +1,23 @@
+--- 
+- name: Install packages and create directories using loops 
+  hosts: all
+  become: yes
+  
+  tasks:
+    - name: install multiple packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - httpd
+        - vim 
+        - nginx
+
+    - name: create multiple directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - /home/ec2-user/html
+        - /home/ec2-user/helloworld

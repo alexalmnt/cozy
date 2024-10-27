@@ -1,0 +1,23 @@
+---
+- name: installing apache and restarting if necessary 
+  hosts: all
+  become: yes
+  tasks:
+    - name: install apache
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+      - httpd
+      - vim
+      notify: restart apache
+    
+    - name: ensure apache is running
+      service:
+        name: httpd
+        state: started
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted

@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to create a s3 bucket with versioning
+
+Parameters:
+  BucketName:
+    Type: String
+    Description: Name of the s3 bucket to create
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      VersioningConfiguration:
+        Status: Enabled
+Outputs:
+  BucketNameOutput:
+    Description: Name Of Newly Created S3 Bucket
+    Value: !Ref MyS3Bucket
