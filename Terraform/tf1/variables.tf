@@ -10,3 +10,7 @@ variable "region" {
   description = "the aws region"
   type        = string
 }
+variable "keyname" {
+  description = "the key name for ec2"
+  type        = string
+}

@@ -9,5 +9,9 @@ provider "aws" {
 resource "aws_instance" "awsintance" {
   ami           = var.ami_id
   instance_type = var.instance_type
+  key_name      = "Mac"
+  tags = {
+    Name = "createdwithterra"
+  }
 }
 
